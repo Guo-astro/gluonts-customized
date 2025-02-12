@@ -1,6 +1,6 @@
 [project]
-name = "gluonts-customized"
-version = "0.1.1"
+name = "gluonts_customized"
+version = "0.1.2"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
