@@ -21,10 +21,10 @@ from pathlib import Path
 from pydoc import locate
 from tempfile import TemporaryDirectory
 from typing import TYPE_CHECKING, Callable, Iterator, Optional, Dict, Any
+from src.version import __version__
 
 import numpy as np
 
-import src.gluonts
 from src.gluonts.core import fqname_for
 from src.gluonts.core.component import equals, from_hyperparameters
 from src.gluonts.core.serde import dump_json, load_json
@@ -47,11 +47,9 @@ class Predictor:
         Prediction horizon.
     """
 
-    __version__: str = src.gluonts.__version__
-
     def __init__(self, prediction_length: int, lead_time: int = 0) -> None:
         assert (
-            prediction_length > 0
+                prediction_length > 0
         ), "The value of `prediction_length` should be > 0"
         assert lead_time >= 0, "The value of `lead_time` should be >= 0"
 
@@ -80,8 +78,8 @@ class Predictor:
         with (path / "gluonts-config.json").open("w") as fp:
             json.dump(
                 {
-                    "model": self.__version__,
-                    "gluonts": src.gluonts.__version__,
+                    "model": __version__,
+                    "gluonts": __version__,
                     "type": fqname_for(self.__class__),
                 },
                 fp,
@@ -191,11 +189,11 @@ class WorkerError:
 
 
 def _worker_loop(
-    predictor_path: Path,
-    input_queue: mp.Queue,
-    output_queue: mp.Queue,
-    worker_id,
-    **kwargs,
+        predictor_path: Path,
+        input_queue: mp.Queue,
+        output_queue: mp.Queue,
+        worker_id,
+        **kwargs,
 ):
     """
     Worker loop for multiprocessing Predictor.
@@ -242,10 +240,10 @@ class ParallelizedPredictor(Predictor):
     """
 
     def __init__(
-        self,
-        base_predictor: Predictor,
-        num_workers: Optional[int] = None,
-        chunk_size=1,
+            self,
+            base_predictor: Predictor,
+            num_workers: Optional[int] = None,
+            chunk_size=1,
     ) -> None:
         super().__init__(
             lead_time=base_predictor.lead_time,

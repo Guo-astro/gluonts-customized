@@ -13,8 +13,7 @@
 
 from typing import Optional
 from typing_extensions import Protocol, runtime_checkable
-
-import src.gluonts
+from src.version import __version__
 from src.gluonts.core.component import from_hyperparameters
 from src.gluonts.dataset.common import Dataset
 from src.gluonts.model.predictor import Predictor
@@ -28,8 +27,6 @@ class Estimator:
     training `Dataset`, producing a `Predictor` object.
     """
 
-    __version__: str = src.gluonts.__version__
-
     prediction_length: int
     lead_time: int
 
@@ -41,7 +38,7 @@ class Estimator:
         self.lead_time = lead_time
 
     def train(
-        self, training_data: Dataset, validation_data: Optional[Dataset] = None
+            self, training_data: Dataset, validation_data: Optional[Dataset] = None
     ) -> Predictor:
         """
         Train the estimator on the given data.
@@ -81,10 +78,10 @@ class Estimator:
 @runtime_checkable
 class IncrementallyTrainable(Protocol):
     def train_from(
-        self,
-        predictor: Predictor,
-        training_data: Dataset,
-        validation_data: Optional[Dataset] = None,
+            self,
+            predictor: Predictor,
+            training_data: Dataset,
+            validation_data: Optional[Dataset] = None,
     ) -> Predictor:
         """
         Experimental: this feature may change in future versions.
