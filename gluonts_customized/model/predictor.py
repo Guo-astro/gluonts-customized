@@ -10,7 +10,6 @@
 # on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
 # express or implied. See the License for the specific language governing
 # permissions and limitations under the License.
-
 import itertools
 import json
 import logging
@@ -24,6 +23,7 @@ from typing import TYPE_CHECKING, Callable, Iterator, Optional, Dict, Any
 
 import numpy as np
 
+import gluonts_customized
 from gluonts_customized.core import fqname_for
 from gluonts_customized.core.component import equals, from_hyperparameters
 from gluonts_customized.core.serde import dump_json, load_json
@@ -77,8 +77,8 @@ class Predictor:
         with (path / "gluonts-config.json").open("w") as fp:
             json.dump(
                 {
-                    "model": __version__,
-                    "gluonts": __version__,
+                    "model": gluonts_customized.__version__,
+                    "gluonts": gluonts_customized.__version__,
                     "type": fqname_for(self.__class__),
                 },
                 fp,

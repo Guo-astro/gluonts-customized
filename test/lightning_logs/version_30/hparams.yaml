@@ -1,0 +1,43 @@
+lr: 0.001
+model_kwargs:
+  cardinality:
+  - 1
+  context_length: 6
+  decoder_hidden_dim: 4
+  decoder_output_dim: 4
+  distr_hidden_dim: 4
+  distr_output: !!python/object/apply:copyreg.__newobj_ex__
+    args:
+    - !!python/name:gluonts_customized.torch.distributions.quantile_output.QuantileOutput ''
+    - !!python/tuple []
+    - &id001 !!python/object/apply:collections.OrderedDict
+      - - - quantiles
+          - - 0.1
+            - 0.6
+            - 0.85
+    state:
+      __init_args__: *id001
+      _quantiles:
+      - 0.1
+      - 0.6
+      - 0.85
+      args_dim:
+        outputs: 3
+      num_quantiles: 3
+  dropout_rate: 0.3
+  embedding_dimension:
+  - 16
+  encoder_hidden_dim: 4
+  feat_proj_hidden_dim: 4
+  layer_norm: false
+  num_feat_dynamic_proj: 2
+  num_feat_dynamic_real: 7
+  num_feat_static_cat: 1
+  num_feat_static_real: 1
+  num_layers_decoder: 1
+  num_layers_encoder: 1
+  prediction_length: 6
+  scaling: mean
+  temporal_hidden_dim: 4
+patience: 10
+weight_decay: 1.0e-08

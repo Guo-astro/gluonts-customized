@@ -19,6 +19,8 @@ from typing import List, Optional, Type, Union
 from flask import Flask
 
 import gluonts
+
+import gluonts_customized
 from gluonts_customized.core import fqname_for
 from gluonts_customized.model.estimator import Estimator
 from gluonts_customized.model.predictor import Predictor
@@ -33,7 +35,6 @@ logging.basicConfig(
     datefmt="[%Y-%m-%d %H:%M:%S]",
 )
 logger = logging.getLogger(__name__)
-
 
 MB = 1024 * 1024
 
@@ -61,7 +62,7 @@ class Settings(BaseSettings):
     sagemaker_batch_strategy: str = "SINGLE_RECORD"
 
     sagemaker_max_payload_in_mb: int = 6
-    sagemaker_max_concurrent_transforms: int = 2**32 - 1
+    sagemaker_max_concurrent_transforms: int = 2 ** 32 - 1
 
     @property
     def sagemaker_server_bind(self) -> str:
@@ -79,8 +80,8 @@ class Settings(BaseSettings):
             return self.model_server_workers
 
         elif (
-            self.sagemaker_batch
-            and self.sagemaker_max_concurrent_transforms < cpu_count
+                self.sagemaker_batch
+                and self.sagemaker_max_concurrent_transforms < cpu_count
         ):
             logger.info(
                 f"Using {self.sagemaker_max_concurrent_transforms} workers "
@@ -94,9 +95,9 @@ class Settings(BaseSettings):
 
 
 def make_flask_app(
-    env: ServeEnv,
-    forecaster_type: Optional[Type[Union[Estimator, Predictor]]],
-    settings: Settings,
+        env: ServeEnv,
+        forecaster_type: Optional[Type[Union[Estimator, Predictor]]],
+        settings: Settings,
 ) -> Flask:
     if forecaster_type is not None:
         logger.info("Using dynamic predictor factory")

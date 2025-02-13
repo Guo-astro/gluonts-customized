@@ -1,0 +1,27 @@
+lr: 0.001
+model_kwargs:
+  batch_norm: false
+  context_length: 60
+  distr_output: !!python/object/apply:copyreg.__newobj_ex__
+    args:
+    - !!python/name:gluonts_customized.torch.distributions.quantile_output.QuantileOutput ''
+    - !!python/tuple []
+    - &id001 !!python/object/apply:collections.OrderedDict
+      - - - quantiles
+          - - 0.1
+            - 0.6
+            - 0.85
+    state:
+      __init_args__: *id001
+      _quantiles:
+      - 0.1
+      - 0.6
+      - 0.85
+      args_dim:
+        outputs: 3
+      num_quantiles: 3
+  hidden_dimensions:
+  - 20
+  - 20
+  prediction_length: 6
+weight_decay: 1.0e-08

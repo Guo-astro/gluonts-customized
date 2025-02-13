@@ -1,0 +1,37 @@
+lr: 0.001
+model_kwargs:
+  cardinality:
+  - 2
+  - 2
+  context_length: 12
+  decoder_hidden_dim: 4
+  decoder_output_dim: 4
+  distr_hidden_dim: 4
+  distr_output: !!python/object/apply:copyreg.__newobj_ex__
+    args:
+    - !!python/name:gluonts_customized.torch.distributions.studentT.StudentTOutput ''
+    - !!python/tuple []
+    - &id001 !!python/object/apply:collections.OrderedDict
+      - - - beta
+          - 0.0
+    state:
+      __init_args__: *id001
+      beta: 0.0
+  dropout_rate: 0.3
+  embedding_dimension:
+  - 16
+  - 16
+  encoder_hidden_dim: 4
+  feat_proj_hidden_dim: 4
+  layer_norm: false
+  num_feat_dynamic_proj: 2
+  num_feat_dynamic_real: 10
+  num_feat_static_cat: 2
+  num_feat_static_real: 1
+  num_layers_decoder: 1
+  num_layers_encoder: 1
+  prediction_length: 12
+  scaling: mean
+  temporal_hidden_dim: 4
+patience: 10
+weight_decay: 1.0e-08

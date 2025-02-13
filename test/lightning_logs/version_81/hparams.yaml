@@ -1,0 +1,27 @@
+lr: 0.001
+model_kwargs:
+  activation: relu
+  context_length: 24
+  d_model: 32
+  dim_feedforward: 128
+  distr_output: !!python/object/apply:copyreg.__newobj_ex__
+    args:
+    - !!python/name:gluonts_customized.torch.distributions.studentT.StudentTOutput ''
+    - !!python/tuple []
+    - &id001 !!python/object/apply:collections.OrderedDict
+      - - - beta
+          - 0.0
+    state:
+      __init_args__: *id001
+      beta: 0.0
+  dropout: 0.1
+  nhead: 4
+  norm_first: false
+  num_encoder_layers: 2
+  num_feat_dynamic_real: 3
+  padding_patch: end
+  patch_len: 16
+  prediction_length: 12
+  scaling: mean
+  stride: 8
+weight_decay: 1.0e-08

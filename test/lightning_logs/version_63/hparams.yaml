@@ -1,0 +1,49 @@
+lr: 0.001
+model_kwargs:
+  cardinality:
+  - 1
+  context_length: 6
+  distr_output: !!python/object/apply:copyreg.__newobj_ex__
+    args:
+    - !!python/name:gluonts_customized.torch.model.mqf2.distribution.MQF2DistributionOutput ''
+    - !!python/tuple []
+    - &id001 !!python/object/apply:collections.OrderedDict
+      - - - beta
+          - 1.0
+        - - es_num_samples
+          - 50
+        - - is_energy_score
+          - true
+        - - prediction_length
+          - 6
+        - - threshold_input
+          - 100.0
+    state:
+      __init_args__: *id001
+      args_dim:
+        'null': 1
+      beta: 1.0
+      es_num_samples: 50
+      is_energy_score: true
+      prediction_length: 6
+      threshold_input: 100.0
+  dropout_rate: 0.1
+  embedding_dimension: null
+  es_num_samples: 50
+  estimate_logdet: false
+  freq: h
+  hidden_size: 40
+  icnn_hidden_size: 20
+  icnn_num_layers: 2
+  is_energy_score: true
+  lags_seq: null
+  num_feat_dynamic_real: 5
+  num_feat_static_cat: 1
+  num_feat_static_real: 1
+  num_layers: 2
+  num_parallel_samples: 100
+  prediction_length: 6
+  scaling: true
+  threshold_input: 100.0
+patience: 10
+weight_decay: 1.0e-08
